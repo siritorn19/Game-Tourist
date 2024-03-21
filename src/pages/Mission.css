@@ -1,0 +1,43 @@
+.HYP-Hunt-Box-Head{
+    height: 160px;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 0;
+}
+.HYP-Hunt-Box{
+    height: 232px;
+    width: 400px;
+    margin: 0 auto;
+}
+.HYP-Hunt-Grid-Item{
+    z-index: 5;
+    margin-bottom: 1;
+}
+.HYP-Hunt-Item{
+    width: 100%;
+    height: 100px;
+}
+.HYP-Hunt-BiggyHead{
+    margin: 0 auto;
+    width: 100%;
+}
+
+.HYP-tour-Box-number{
+    height: 400px;
+    width: 450px;
+    margin: 1 auto;
+    z-index: 0;
+}
+
+@media (max-width:400px) {
+    .HYP-Hunt-Box{
+        height: 250px;
+        width: 400px;    
+    }
+    .HYP-Hunt-Item{
+        height: 100px;
+    }
+    .HYP-Hunt-BiggyHead{
+        width: 100px;
+    }  
+}

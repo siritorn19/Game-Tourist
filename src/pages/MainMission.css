@@ -1,0 +1,128 @@
+.Main-Hunt-Box{
+    height: 400px;
+    width: 400px;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    z-index: 0;
+}
+.Main-Hunt-TopLayer-Box{
+    height: 400px;
+    width: 400px;
+    position: absolute;
+    z-index: 3;
+}
+.Main-Hunt-HYP-Box,.Main-Hunt-MINI-Box{
+    height: 200px;
+    z-index: 3;
+}
+.Main-Hunt-animate-Box{
+    height: 400px;
+    width: 400px;
+    position: absolute;
+    z-index: 1;
+}
+.Main-BiggyHead-Box{
+    width: 140px;
+    margin-left: 130px;
+    display: block;
+    float: left;
+}
+.Main-BiggyHead-Box>img{
+    width: 100%;
+}
+.Main-Counter-Box{
+    position: absolute;
+    right: 55px;
+    margin-top: 38px;
+}
+.Main-Camera-Box{
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    width: 60px;
+    height: 60px;
+}
+.Main-Camera-Box>img{
+    width: 100%;
+}
+
+@media (max-width:400px) {
+    .Main-Hunt-Box{
+        height: 300px;
+        width: 300px;    
+    }
+    .Main-Hunt-TopLayer-Box{
+        height: 300px;
+        width: 300px;
+    }    
+    .Main-Hunt-HYP-Box,.Main-Hunt-MINI-Box{
+        height: 150px;
+    }    
+    .Main-Hunt-animate-Box{
+        height: 300px;
+        width: 300px;
+    }
+    .Main-BiggyHead-Box{
+        width: 100px;
+        margin-left: 80px;
+    }
+    .Main-Counter-Box{
+        right: 24px;
+        margin-top: 25px;
+    }
+    .Main-Camera-Box{
+        right: 5px;
+        bottom: 5px;
+        width: 50px;
+        height: 50px;
+    }    
+    
+}
+
+
+
+.HYP-Hunt-Box{
+    height: 400px;
+    width: 400px;
+    margin: 0 auto;
+    z-index: 0;
+}
+.HYP-Hunt-Grid-Item{
+    z-index: 3;
+}
+.HYP-Hunt-Item{
+    width: 100%;
+    height: 133px;
+}
+.HYP-Hunt-BiggyHead{
+    margin: 0 auto;
+    width: 120px;
+}
+.HYP-Hunt-animate-Box{
+    height: 200px;
+    position: absolute;
+    width: 400px;
+    z-index: 1;
+    margin-top: -60px;
+    display: flex;
+    overflow: hidden;
+}
+
+@media (max-width:400px) {
+    .HYP-Hunt-Box{
+        height: 300px;
+        width: 300px;    
+    }
+    .HYP-Hunt-Item{
+        height: 100px;
+    }
+    .HYP-Hunt-BiggyHead{
+        width: 90px;
+    }
+    .HYP-Hunt-animate-Box{
+        width: 300px;
+        margin-top: -45px;
+    }    
+}
