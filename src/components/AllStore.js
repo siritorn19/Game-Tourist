@@ -1,8 +1,8 @@
 import React from "react";
 import { Grid, Typography, Button } from "@mui/material";
-import ArticleIcon from "@mui/icons-material/Article";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
-function HowtoPlay() {
+function AllStore() {
   return (
     <Grid
       container
@@ -28,10 +28,9 @@ function HowtoPlay() {
           color: "#000",
         }}
       >
-        วิธีเล่นเกม
+        สาขาทั้งหมด
       </Button>
-      <a href="https://bigc-online-catalog.web.app/catalog/how_to_game_thailand_tourism_festival_2024"
-        target="_blank"
+      <a href="/liststore"
         rel="noopener noreferrer"
         style={{ textDecoration: "none", color: "#000" }}
       >
@@ -41,11 +40,11 @@ function HowtoPlay() {
           sx={{ borderRadius: 5, p: 2, backgroundColor: "grey.200" }}
         >
           <Grid item xs={3}>
-            <ArticleIcon sx={{ fontSize: 50, color: "#000" }} />
+            <LocationOnIcon sx={{ fontSize: 50, color: "#000" }} />
           </Grid>
           <Grid item xs={9}>
             <Typography sx={{ fontFamily: "Prompt" }}>
-              กดเพื่อดูวิธีการเล่นเกม สุขทันที ที่เที่ยวไทย
+              กดเพื่อดูสาขาทั้งหมดที่ร่วม สุขทันที ที่เที่ยวไทย
               สุขไปกันใหญ่ที่บิ๊กซี
             </Typography>
           </Grid>
@@ -55,4 +54,4 @@ function HowtoPlay() {
   );
 }
 
-export default HowtoPlay;
+export default AllStore;

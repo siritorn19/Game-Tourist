@@ -7,6 +7,8 @@ import ListStore from "./pages/ListStore";
 import Mission from "./pages/Mission";
 import "./index.css";
 
+import Maintenace from "./pages/Maintenance";
+
 
 export default function App() {
   return (
@@ -20,6 +22,13 @@ export default function App() {
       >
         <Router>
           <LoginLineLiff />
+          {/* <Switch>
+            <Route exact path="/" component={Maintenace} />
+            <Route path="/liststore" component={Maintenace} />
+            <Route path="/mission" component={Maintenace} />
+            <Route path="/scanqr" component={Maintenace} />
+            <Route path="*" render={() => <Redirect to="/" />} />
+          </Switch> */}
           <Switch>
             <Route exact path="/" component={Mission} />
             <Route path="/liststore" component={ListStore} />

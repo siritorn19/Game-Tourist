@@ -2,16 +2,20 @@ import * as React from "react";
 import { styled, css } from "@mui/system";
 import { Button } from "@mui/base/Button";
 import { Dialog, DialogContent, Grid, CardMedia, Box, Typography } from "@mui/material";
-import reward250 from "../imges/reward/icon-reward-250.png";
+import reward10bigpoint from "../imges/reward/icon-bigpoint-10.png"
 import "./Alert.css";
+import { useHistory } from 'react-router-dom';
 
 const PopupAward = ({ message, error }) => {
   const [open, setOpen] = React.useState(true);
   const userLineId = sessionStorage.getItem("userId");
   const bigpointId = sessionStorage.getItem("bigpointId");
+  const history = useHistory();
 
   const handleClose = () => {
     setOpen(false);
+    history.push('/');
+    window.location.reload();
   };
 
   const handleToRegister = (e) => {
@@ -47,7 +51,7 @@ const PopupAward = ({ message, error }) => {
                 <CardMedia
                   className="box-dialog-img"
                   component="img"
-                  image={reward250}
+                  image={reward10bigpoint}
                 />
               </Grid>
               <Grid item sm={12} xs={12}>

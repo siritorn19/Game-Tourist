@@ -35,12 +35,13 @@ const Navbar = ({ userName, pictureUrl }) => {
 
       if (response.status === 200) {
         const data = response.data;
-        if (data.status === "success") {
+      if (data.status === "success") {
           setUserData(data.data);
           if (data.data.bigpoint_id != null) {
             setBigpointId(data.data.bigpoint_id);
             sessionStorage.setItem("bigpointId", data.data.bigpoint_id);
           }
+          sessionStorage.setItem("welcome", data.data.welcome_reward);
         } else {
           setError(data.message);
         }
@@ -66,7 +67,7 @@ const Navbar = ({ userName, pictureUrl }) => {
 
   return (
     <>
-      <AppBar position="static" sx={{ background: "#9ac93d", minWidth: "320px" }}>
+      <AppBar position="static" sx={{ background: "#93d701", minWidth: "320px" }}>
         <PopupAward error={error} rewardData={rewardData} />
         <Grid
           container
@@ -76,12 +77,12 @@ const Navbar = ({ userName, pictureUrl }) => {
           sx={{ display: "flex" }}
         >
 
-          <Toolbar sx={{ m: 0, p: 0.2 }}>
+          <Toolbar sx={{ m: 0, p: 0 }}>
             <div style={{ width: "100%" }}>
               <Card
                 sx={{
                   maxWidth: 300,
-                  background: "#9ac93d",
+                  background: "#93d701",
                   border: "none",
                   boxShadow: "none", 
                 }}

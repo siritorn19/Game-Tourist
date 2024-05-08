@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Button } from "@mui/base/Button";
 import { Dialog, DialogContent, Grid, CardMedia, Box, Typography } from "@mui/material";
-import reward250 from "../imges/reward/icon-reward-250.png";
+// import reward250 from "../imges/reward/icon-reward-250.png";
+import welcomegift from "../imges/Welcomegift.png"
 import "./Alert.css";
 
 const PopupAwardWelcome = ({ message, error }) => {
@@ -46,7 +47,7 @@ const PopupAwardWelcome = ({ message, error }) => {
                 <CardMedia
                   className="box-dialog-img"
                   component="img"
-                  image={reward250} // img
+                  image={welcomegift} // img
                 />
               </Grid>
               <Grid item sm={12} xs={12}>
@@ -88,7 +89,7 @@ const PopupAwardWelcome = ({ message, error }) => {
                   <Box className="btn-dialog">
                     <Button
                       sx={{ color: "#fff" }}
-                      onClick={(e) => handleToMyReward(e)}
+                      onClick={(e) => handleClose(e)}
                     >
                       ตกลง
                     </Button>

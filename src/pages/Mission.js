@@ -6,10 +6,10 @@ import { Grid, Typography, Box } from "@mui/material";
 import queryString from "query-string";
 import PopupQRReuse from "../components/AlertqrReuse";
 import PopupAward from "../components/AleartAward";
+import PopupAward20 from "../components/Alert20Award";
 import PopupAwardWelcome from "../components/AleartWelcomeAward";
+import BigCLoading from "../components/Loading";
 
-import tournumber from "../imges/Tournumber.jpg";
-import tourscan from "../imges/Tourscan.jpg";
 import tourgame from "../imges/TourGame.jpg";
 import stamp from "../imges/Stamp.png";
 
@@ -20,12 +20,14 @@ import "./Mission.css";
 const Mission = () => {
   const userId = sessionStorage.getItem("userId");
   const bigpointId = sessionStorage.getItem("bigpointId");
+  const welcome = sessionStorage.getItem("welcome");
 
   const [missionData, setMissionData] = useState([]);
   const [status, setStatus] = useState("");
   const [processData, setProcessData] = useState([]);
   const [error, setError] = useState(null);
   const [award, setAward] = useState(null);
+  const [award20, setAward20] = useState(null);
   const [rewardData, setRewardData] = useState(null);
   const [rewardFetched, setRewardFetched] = useState(false);
   const [WelcomeAward, setWelcomeAward] = useState(null);
@@ -38,8 +40,13 @@ const Mission = () => {
   const qr = params.qr;
 
   useEffect(() => {
-    fetchData();
-    fetchWelcomeReward();
+    // if (userId != "") {
+      fetchData();
+      // console.log(sessionStorage)
+      if (welcome === "false") {
+        fetchWelcomeReward();
+      // }
+    }
   }, []);
 
   const fetchData = async () => {
@@ -53,15 +60,16 @@ const Mission = () => {
         }
       );
       setStatus(missionResponse.data.status);
-      console.log("get :", missionResponse);
+      // console.log("get :", missionResponse);
       if (missionResponse.data.status === "success") {
         setMissionData(missionResponse.data.data);
         setProcessData(missionResponse.data);
       }
 
       /* Check-in */
-      if (qr) {
-        console.log(`qr-: ${qr}`);
+      // if (qr) {
+      // console.log(`qr-: ${qr}`);
+      if (userId !== "" && qr) {
         const checkinResponse = await axios.post(
           `${process.env.REACT_APP_BACKEND_URL}/local_campaign/checkin/`,
           {
@@ -88,13 +96,13 @@ const Mission = () => {
           }
         } else if (checkinResponse.data.status === "success") {
           if (checkinResponse.data.message === "get reward") {
-            setAward("ยินดีด้วย คุณรับรางวัลแล้ว");
-            console.log("Reward received!");
             await fetchReward();
           } else {
             console.log("Check-in status error");
           }
         }
+      } else {
+        return <BigCLoading />;
       }
     } catch (error) {
       console.log("Error checkin:", error);
@@ -104,14 +112,12 @@ const Mission = () => {
   /* Get reward */
   const fetchReward = async () => {
     try {
-      setIsLoading(true); // Set loading state
       const requestData = {
         userId: userId,
         qrCodeId: qr,
         bigpointId: bigpointId,
       };
       console.log("GetReward sent to API :", requestData);
-
       axios
         .post(
           `${process.env.REACT_APP_BACKEND_URL}/local_campaign/getreward/`,
@@ -123,23 +129,25 @@ const Mission = () => {
           }
         )
         .then(async (response) => {
-          setIsLoading(false); // Set loading state
-          console.log("GetReward data:", response.data);
+          // console.log("GetReward data:", response.data);
           if (response.data.status === "success") {
             await setRewardData(response.data);
-            console.log("GetReward message:", response.data.message);
-            await setAward("รับส่วนลดคูปอง<br/>*เงื่อนไขตามที่บริษัทกำหนด");
+            // console.log("GetReward message:", response.data.message);
+            if (response.data.message === "10 Bigpoint") {
+              await setAward("รับ 10 บิ๊กพอยต์<br/>*เงื่อนไขตามที่บริษัทกำหนด");
+            } else if (response.data.message === "20 Bigpoint") {
+              await setAward20(
+                "รับ 20 บิ๊กพอยต์<br/>*เงื่อนไขตามที่บริษัทกำหนด"
+              );
+            } else {
+              console.log("Error GetReward Message");
+            }
           } else {
             console.log("Error GetReward");
           }
         })
-        .catch((error) => {
-          setIsLoading(false);
-          // console.error("Error fetching data:", error);
-        });
-    } catch (error) {
-      // console.error("Error fetching data:", error);
-    }
+        .catch((error) => {});
+    } catch (error) {}
   };
 
   /* Get Welcome Reward */
@@ -149,7 +157,7 @@ const Mission = () => {
         userId: userId,
         bigpointId: bigpointId,
       };
-      console.log("WelcomeReward sent to API:", requestData);
+      // console.log("WelcomeReward sent to API:", requestData);
       axios
         .post(
           `${process.env.REACT_APP_BACKEND_URL}/local_campaign/getwelcomereward/`,
@@ -161,10 +169,11 @@ const Mission = () => {
           }
         )
         .then(async (response) => {
-          console.log("WelcomeAward data:", response.data);
+          // console.log("WelcomeAward data:", response.data);
           if (response.data.status === "success") {
             await setRewardData(response.data);
             await setWelcomeAward("รับคูปอง Welcome award <br/>");
+            sessionStorage.setItem("welcome", true);
           } else {
             console.log("Welcome Status is failed, not showing popup");
           }
@@ -176,8 +185,8 @@ const Mission = () => {
   return (
     <Layout>
       <Grid sx={{ m: 1 }}>
-        <Grid item xs={12} sx={{ mb: 3, mt: 3 }}>
-          <Typography fontSize={26} color="#000" align="center">
+        <Grid item xs={12} sx={{ mb: 2, mt: 2 }}>
+          <Typography fontSize={22} color="#000" align="center">
             <b>
               สุขทันที <a style={{ color: "#f2228f" }}>ที่เที่ยวไทย</a> <br />{" "}
               สุขไปกันใหญ่ ที่บิ๊กซี
@@ -185,29 +194,30 @@ const Mission = () => {
           </Typography>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid className="Main-Hunt-Box">
           <Link to="/scanqr">
             <Box
-              className="HYP-Hunt-Box-Head"
+              // className="HYP-Hunt-Box"
               sx={{
-                background: `url(${tourscan}) center/cover no-repeat`,
+                background: `url(${tourgame}) center/cover no-repeat`,
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
-              }}
-            ></Box>
-          </Link>
-
-          <Link to="/scanqr">
-            <Box
-              className="HYP-Hunt-Box"
-              sx={{
-                background: `url(${tournumber}) center/cover no-repeat`,
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
+                border: "1px solid #000",
+                borderRadius: 3,
               }}
             >
-              <Grid container spacing={0.1}>
-                {Array.from({ length: 11 }, (item, index) => {
+              <Box
+                className="HYP-Hunt-new-box"
+                xs="auto"
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "tranparent",
+                }}
+              ></Box>
+              <Grid container spacing={0.1} justifyContent="space-evenly">
+                {Array.from({ length: 10 }, (item, index) => {
                   const mission =
                     missionData[index] &&
                     missionData[index].check_point_type === 3;
@@ -222,10 +232,8 @@ const Mission = () => {
                         xs="auto"
                         className="HYP-Hunt-Item"
                         sx={{
-                          width: "75px",
-                          height: "115px",
+                          p: 0.1,
                           display: "flex",
-                          p:0.2,
                           justifyContent: "center",
                           alignItems: "center",
                           backgroundColor: "tranparent",
@@ -235,7 +243,10 @@ const Mission = () => {
                           <img
                             src={stamp}
                             alt={`${index + 1}`}
-                            style={{ maxWidth: "100%", maxHeight: "100%" }}
+                            style={{
+                              width: `${(400 - 20) / 5}px`,
+                              maxHeight: "100%",
+                            }}
                           />
                         )}
                       </Box>
@@ -246,12 +257,15 @@ const Mission = () => {
             </Box>
           </Link>
         </Grid>
-        {error && <PopupQRReuse message={error} page={popUpReload} />}
-        {isLoading ? (<Waiting />) : ''}
-        {WelcomeAward && (
-          <PopupAwardWelcome message={WelcomeAward} page="main" />
-        )}
-        {award && <PopupAward message={award} />}
+        <div style={{ width: "100%" }}>
+          {error && <PopupQRReuse message={error} page={popUpReload} />}
+          {isLoading ? <Waiting /> : ""}
+          {WelcomeAward && (
+            <PopupAwardWelcome message={WelcomeAward} page="main" />
+          )}
+          {award && <PopupAward message={award} />}
+          {award20 && <PopupAward20 message={award20} />}
+        </div>
       </Grid>
     </Layout>
   );

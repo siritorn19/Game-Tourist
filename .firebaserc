@@ -7,10 +7,10 @@
     "bigc-line": {
       "hosting": {
         "bigc-line-gamification-stg": [
-          "bigc-dmkt-gamification-stg"
+          "bigc-dmkt-gamification-tat-stg"
         ],
         "bigc-line-gamification-prod": [
-          "bigc-dmkt-gamification"
+          "bigc-dmkt-gamification-tat"
         ]
       }
     }

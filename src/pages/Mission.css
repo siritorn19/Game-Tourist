@@ -1,43 +1,64 @@
-.HYP-Hunt-Box-Head{
-    height: 160px;
-    width: 100%;
-    margin: 0 auto;
-    z-index: 0;
-}
-.HYP-Hunt-Box{
-    height: 232px;
-    width: 400px;
-    margin: 0 auto;
-}
-.HYP-Hunt-Grid-Item{
-    z-index: 5;
-    margin-bottom: 1;
-}
-.HYP-Hunt-Item{
-    width: 100%;
-    height: 100px;
-}
-.HYP-Hunt-BiggyHead{
-    margin: 0 auto;
-    width: 100%;
+.Main-Hunt-Box {
+  height: 400px;
+  width: 400px;
 }
 
-.HYP-tour-Box-number{
+.HYP-Hunt-Box-Head {
+  height: 160px;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 0;
+}
+.HYP-Hunt-Box {
+  height: 400px;
+  width: 400px;
+  margin: 0 auto;
+}
+.HYP-Hunt-Grid-Item {
+  z-index: 5;
+}
+.HYP-Hunt-Item {
+  width: 75px;
+  height: 115px;
+}
+.HYP-Hunt-BiggyHead {
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* .HYP-tour-Box-number{
     height: 400px;
     width: 450px;
     margin: 1 auto;
     z-index: 0;
+} */
+
+.HYP-Hunt-new-box {
+  height: 160px;
 }
 
-@media (max-width:400px) {
-    .HYP-Hunt-Box{
-        height: 250px;
-        width: 400px;    
-    }
-    .HYP-Hunt-Item{
-        height: 100px;
-    }
-    .HYP-Hunt-BiggyHead{
-        width: 100px;
-    }  
+@media (max-width: 400px) {
+  .HYP-Hunt-Box {
+    height: 400px;
+    width: 400px;
+  }
+  .HYP-Hunt-Item {
+    width: 70px;
+    height: 110px;
+  }
+  .HYP-Hunt-BiggyHead {
+    width: 100px;
+  }
+}
+
+@media (min-width: 768px) {
+  .Main-Hunt-Box {
+    height: 400px;
+    width: 400px;
+    text-decoration: none;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    z-index: 0;
+  }
 }

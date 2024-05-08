@@ -11,8 +11,8 @@ const LoginLineLiff = () => {
     const initializeLiff = async () => {
       try {
         await liff.init({
-          // liffId: process.env.REACT_APP_LINE_LIFF_ID,
-          liffId: "2002817424-Q5Mx7Nz3",
+          liffId: process.env.REACT_APP_LINE_LIFF_ID,
+          // liffId:'2002817424-Q5Mx7Nz3',
           withLoginOnExternalBrowser: true,
         });
 

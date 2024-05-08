@@ -4,7 +4,7 @@ export const AddSession = (user) => {
     sessionStorage.setItem("userId", user.userId);
     sessionStorage.setItem("userName", user.displayName);
     sessionStorage.setItem("pictureUrl", user.pictureUrl);
-  
+
     /*sessionStorage.setItem(
       "accessTokenTime",
       moment().add(process.env.REACT_APP_SESSION_TIMEOUT_HOURS, "hours").valueOf()
@@ -18,5 +18,6 @@ export const AddSession = (user) => {
     sessionStorage.removeItem("userName");
     sessionStorage.removeItem("pictureUrl");
     sessionStorage.removeItem("bigpointId");
+    sessionStorage.removeItem("welcome");
     //sessionStorage.removeItem("accessTokenTime");
   };

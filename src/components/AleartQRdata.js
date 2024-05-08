@@ -13,9 +13,9 @@ const PopupQRdata = ({ message, page }) => {
       window.location.href = "/mission";
     } else if (page === "scanqr") {
       window.location.href = "/scanqr";
-      console.log("location scan")
     }
     setOpen(false);
+    window.location.reload();
   };
 
   return (

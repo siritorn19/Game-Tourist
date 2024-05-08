@@ -1,27 +1,29 @@
-// ListStorePage1.js
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
   Typography,
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  IconButton,
 } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Layout from "./Layout";
 import jsondata from "../data/data.json";
 
-
-function AccordionSection({ title, filteredData }) {
+function AccordionSection({ title, storeNames, open, handleChange }) {
   return (
-    <Grid sx={{ mt: 2 }}>
+    <Grid sx={{ m: 1 }}>
       <Accordion
         sx={{
           width: "100%",
           borderRadius: "10px",
-          backgroundColor: "#9ac93d",
+          backgroundColor: "#93d701",
         }}
+        expanded={open === title}
+        onChange={handleChange(title)}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -32,14 +34,14 @@ function AccordionSection({ title, filteredData }) {
             sx={{
               fontFamily: "Prompt",
               color: "#000",
-              fontWeight: "bold",
+              // fontWeight: "bold",
             }}
           >
-            {title}
+            จังหวัด{title}
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ border: "1px solid #f7f7f7" }}>
-          {filteredData.map((item, index) => (
+          {storeNames.map((storeName, index) => (
             <div key={index}>
               <Typography
                 sx={{
@@ -55,7 +57,7 @@ function AccordionSection({ title, filteredData }) {
                     mb: 0,
                   }}
                 />
-                {item.storeName}
+                {storeName}
               </Typography>
             </div>
           ))}
@@ -65,38 +67,55 @@ function AccordionSection({ title, filteredData }) {
   );
 }
 
-
-
 function ListStore() {
   const [data, setData] = useState([]);
+  const [openAccordion, setOpenAccordion] = useState(null);
 
   useEffect(() => {
     setData(jsondata);
   }, []);
 
-  const filteredSections = [
-    { title: "กรุงเทพมหานคร", filter: (item, index) => index >= 1 && index <= 23 },
-    { title: "สุราษฎร์ธานี", filter: (item, index) => index >= 24 && index <= 54 },
-    { title: "สระบุรี", filter: (item, index) => index >= 55 && index <= 79 },
-    { title: "นครพนม", filter: (item, index) => index >= 116 && index <= 128 },
-    { title: "ชัยนาท", filter: (item, index) => index >= 129 && index <= 131 },
-    { title: "พังงา", filter: (item, index) => index >= 132 && index <= 134 },
-    { title: "หาดใหญ่", filter: (item, index) => index >= 135 && index <= 171 },
-    { title: "สุราษฎร์ธานี", filter: (item, index) => index >= 172 && index <= 195 },
-    { title: "ระยอง", filter: (item, index) => index >= 216 && index <= 235 },
-    { title: "ปัตตานี", filter: (item, index) => index >= 236 && index <= 259 },
-  ];
+  const handleBack = (e) => {
+    e.preventDefault();
+    window.history.go(-1);
+    return false;
+  };
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setOpenAccordion(isExpanded ? panel : null);
+  };
+
+  // Group storeNames by storeCity
+  const groupedData = data.reduce((acc, { storeCity, storeName }) => {
+    if (!acc[storeCity]) {
+      acc[storeCity] = [];
+    }
+    acc[storeCity].push(storeName);
+    return acc;
+  }, {});
+
+  const accordionSections = Object.entries(groupedData).map(([storeCity, storeNames]) => ({
+    title: storeCity,
+    storeNames: storeNames,
+  }));
 
   return (
     <Layout>
       <Grid sx={{ m: 1 }}>
-        <Grid item xs={12} sx={{ m: 2 }}>
-          <Typography fontSize={26} color="#000" align="center">
-            <b>
-              สุขทันที <a style={{ color: "#f2228f" }}>ที่เที่ยวไทย</a> <br />{" "}
-              สุขไปกันใหญ่ ที่บิ๊กซี
-            </b>
-          </Typography>
+        <Grid container spacing={0} direction="column">
+          <Grid sx={{ m: 1 }}>
+            <IconButton onClick={handleBack}>
+              <ArrowBackIosIcon sx={{ stroke: "#000", strokeWidth: 2 }} />
+            </IconButton>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography fontSize={22} color="#000" align="center">
+              <b>
+                สุขทันที <a style={{ color: "#f2228f" }}>ที่เที่ยวไทย</a> <br /> 
+                สุขไปกันใหญ่ ที่บิ๊กซี
+              </b>
+            </Typography>
+          </Grid>
         </Grid>
 
         <Grid
@@ -108,11 +127,13 @@ function ListStore() {
             marginTop: "2rem",
           }}
         >
-          {filteredSections.map(({ title, filter }) => (
+          {accordionSections.map(({ title, storeNames }) => (
             <AccordionSection
               key={title}
               title={title}
-              filteredData={data.filter(filter)}
+              storeNames={storeNames}
+              open={openAccordion}
+              handleChange={handleChange}
             />
           ))}
         </Grid>

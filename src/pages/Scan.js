@@ -5,11 +5,15 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Layout from "./Layout";
 import PopupQRdata from "../components/AleartQRdata";
 import Waiting from "../components/Waiting";
+import BigCLoading from "../components/Loading";
+
 
 const ScanQR = () => {
   const [error, setError] = useState(null);
   const [popUpReload, setPopUpReload] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+ 
+
 
   const handleScan = (data) => {
     if (data) {
@@ -62,10 +66,10 @@ const ScanQR = () => {
             <ArrowBackIosIcon sx={{ stroke: "#000", strokeWidth: 2 }} />
           </IconButton>
         </Grid>
-        <Grid item xs={12} sx={{ mb: 3  }}>
-          <Typography fontSize={26} color="#000" align="center">
+        <Grid item xs={12} sx={{ mb: 2 }}>
+          <Typography fontSize={22} color="#000" align="center">
             <b>
-              สุขทันที <a style={{ color: "#f2228f" }}>ที่เที่ยวไทย</a> <br />
+              สุขทันที <a style={{ color: "#f2228f" }}>ที่เที่ยวไทย</a> <br />{" "}
               สุขไปกันใหญ่ ที่บิ๊กซี
             </b>
           </Typography>

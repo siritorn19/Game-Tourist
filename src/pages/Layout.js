@@ -1,11 +1,12 @@
 import * as React from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import HowtoPlay from "../components/HowtoPlay";
 import Navbar from "../components/NavBar";
 import BigCLoading from "../components/Loading";
-import FloatingActionButtons from "../components/FloatingActionButtons";
 
 import "./Layout.css";
+import AllStore from "../components/AllStore";
+import HowtoCamera from "../components/HowtoCamera";
 
 function Layout(props) {
   const userId = sessionStorage.getItem("userId");
@@ -23,10 +24,12 @@ function Layout(props) {
           userLineId={userLineId}
           pictureUrl={pictureUrl}
         />
-        
+
         {props.children}
-        <Grid sx={{ m: 2 }}>
-        <HowtoPlay />
+        <Grid sx={{ m: 1 }}>
+          <HowtoCamera />
+          <AllStore />
+          <HowtoPlay />
         </Grid>
       </>
     );
